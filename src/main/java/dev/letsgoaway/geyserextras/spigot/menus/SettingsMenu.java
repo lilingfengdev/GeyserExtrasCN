@@ -10,16 +10,16 @@ public class SettingsMenu extends BedrockForm {
     SettingsMenu(BedrockPlayer bplayer) {
         super("Settings");
         if (Config.customCoolDownEnabled) {
-            add(new Dropdown("Attack Indicator", BedrockPlayer.cooldownTypes, bplayer.cooldownType,
+            add(new Dropdown("伤害指示", BedrockPlayer.cooldownTypes, bplayer.cooldownType,
                     bplayer::setCooldownType)
             );
         }
         if (bplayer.player.hasPermission("geyser.command.offhand")) {
-            add(new Toggle("Sneak-Drop to Swap Offhand", bplayer.enableSneakDropOffhand, (b) -> {
+            add(new Toggle("偷偷摸摸地切换副手", bplayer.enableSneakDropOffhand, (b) -> {
                 bplayer.enableSneakDropOffhand = b;
                 bplayer.setEnableSneakDropOffhand(b);
             }));
         }
-        add(new Toggle("Arrow Delay Fix", bplayer.enableArrowDelayFix, bplayer::setEnableArrowDelayFix));
+        add(new Toggle("箭延迟修复", bplayer.enableArrowDelayFix, bplayer::setEnableArrowDelayFix));
     }
 }

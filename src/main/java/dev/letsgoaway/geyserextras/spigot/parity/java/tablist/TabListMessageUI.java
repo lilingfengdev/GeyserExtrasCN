@@ -11,7 +11,7 @@ public class TabListMessageUI extends BedrockForm {
         onClose = ()->{
             new TabListPlayerDetails(bedrockPlayer, recipient);
         };
-        add(new TextInput("Messaging: " + recipient.getName(), (s)->{
+        add(new TextInput("信息发送: " + recipient.getName(), (s)->{
             bedrockPlayer.player.performCommand("msg "+recipient.getName()+" "+s);
         }));
     }
