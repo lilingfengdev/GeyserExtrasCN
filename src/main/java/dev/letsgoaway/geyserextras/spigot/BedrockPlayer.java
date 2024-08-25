@@ -459,7 +459,7 @@ public class BedrockPlayer {
     public float averagePing = 0.0f;
 
     private void calculateAveragePing() {
-        int ping = player.getPing();
+        int ping = getPing();
         if (lastPing != ping) {
             pingValues.add(ping);
             if (pingValues.size() > 10) {
@@ -471,6 +471,14 @@ public class BedrockPlayer {
             }
             averagePing = (float) total / pingValues.size();
             lastPing = ping;
+        }
+    }
+
+    private int getPing() {
+        if (GeyserExtras.bedrockAPI.supports(APIType.GEYSER)) {
+            return GeyserExtras.bedrockAPI.apiInstances.get(APIType.GEYSER).getPing(player.getUniqueId());
+        } else {
+            return player.getPing();
         }
     }
 
@@ -567,8 +575,8 @@ public class BedrockPlayer {
     }
 
     private void runCommand(String string) {
-        if (Config.proxyMode) {
-            player.performCommand(string);
+        if (string.equals("geyser offhand") && GeyserExtras.bedrockAPI.supports(APIType.GEYSER)) {
+            GeyserExtras.bedrockAPI.apiInstances.get(APIType.GEYSER).swapOffhand(player.getUniqueId());
         } else {
             player.performCommand(string);
         }
